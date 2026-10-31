@@ -1,0 +1,37 @@
+* Teleport around
+
+This is a small program that stores directories to a SQLite database, and retrieves it.
+
+You can use it with Emacs, Bash, Zsh and POSIX shells to retrieve commonly visited directories and change directory to it. Notable files are in [[./hooks/]].
+
+** Requirements
+
+- [[https://github.com/aocoronel/odd][odd]]
+- [[https://github.com/aocoronel/odin-sqlite3][odin-sqlite3]]
+
+** Usage
+
+#+BEGIN_SRC
+Usage: tp [option] dir..
+Options:
+  d,database:text
+      Path to database
+  list
+      List all entries
+  prune
+      Remove all invalid entries
+  query
+      Return matches
+#+END_SRC
+
+** Compiling
+
+TBD: Make an inliner, so it isn't that painful to compile from source.
+
+#+BEGIN_SRC
+odin build .
+#+END_SRC
+
+** License
+
+This repository is licensed under the 3-clause BSD license.
