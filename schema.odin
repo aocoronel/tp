@@ -24,7 +24,8 @@ WHERE name = ?
 FIND :: ```
 SELECT name, count, mtime
 FROM directory
-WHERE name LIKE ?
+WHERE name LIKE ? || '%' AND name
+NOT LIKE ? || '%/%'
 ORDER BY
     CASE
         WHEN mtime >= strftime('%s', 'now') - 86400 THEN 0

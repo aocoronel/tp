@@ -240,7 +240,7 @@ find_entries :: proc(db: ^sqlite.SQLite3, args: []string) -> (^sqlite.Stmt, bool
 		return nil, false
 	}
 
-	stmt, status := sqlite.prepare(db, FIND, match)
+	stmt, status := sqlite.prepare(db, FIND, match, match)
 	if status != nil {
 		log.errorf("%v: %s", status, sqlite.errmsg(db))
 		return nil, false
