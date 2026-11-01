@@ -26,10 +26,8 @@ Options:
 
 ** Compiling
 
-TBD: Make an inliner, so it isn't that painful to compile from source.
-
 #+BEGIN_SRC
-odin build .
+odin run . -- release
 #+END_SRC
 
 ** License
