@@ -7,7 +7,7 @@ import "core:os"
 import "core:strings"
 import "shared:odd/debug"
 import "shared:odd/flags"
-import sqlite "shared:odin-sqlite3"
+import sqlite "shared:sqlite3"
 
 Directory :: struct {
 	path:  string,
