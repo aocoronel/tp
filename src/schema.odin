@@ -33,3 +33,15 @@ ORDER BY
     END ASC,
     count DESC;
 ```
+
+FIND_RELAXED :: ```
+SELECT name, count, mtime
+FROM directory
+WHERE name LIKE ?
+ORDER BY
+    CASE
+        WHEN mtime >= strftime('%s', 'now') - 86400 THEN 0
+        ELSE 1
+    END ASC,
+    count DESC;
+```

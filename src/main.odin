@@ -128,10 +128,9 @@ _main :: proc() -> Error {
 		}
 	}
 
-	stmt := find_entries(db, dir[:]) or_return
-	defer sqlite.finalize(stmt)
-
 	if query {
+		stmt := find_relaxed_entries(db, dir[:]) or_return
+		defer sqlite.finalize(stmt)
 		for {
 			row, status := sqlite.execute(db, stmt, Directory)
 			if status != nil {
@@ -143,6 +142,9 @@ _main :: proc() -> Error {
 		}
 		return true
 	}
+
+	stmt := find_entries(db, dir[:]) or_return
+	defer sqlite.finalize(stmt)
 
 	cwd := os.get_working_directory(context.allocator) or_return
 
@@ -241,6 +243,22 @@ find_entries :: proc(db: ^sqlite.SQLite3, args: []string) -> (^sqlite.Stmt, bool
 	}
 
 	stmt, status := sqlite.prepare(db, FIND, match, match)
+	if status != nil {
+		log.errorf("%v: %s", status, sqlite.errmsg(db))
+		return nil, false
+	}
+
+	return stmt, true
+}
+
+find_relaxed_entries :: proc(db: ^sqlite.SQLite3, args: []string) -> (^sqlite.Stmt, bool) {
+	match, err := join(args, "%", context.allocator)
+	if err != nil {
+		log.errorf("%s: %s", args, os.error_string(err))
+		return nil, false
+	}
+
+	stmt, status := sqlite.prepare(db, FIND_RELAXED, match)
 	if status != nil {
 		log.errorf("%v: %s", status, sqlite.errmsg(db))
 		return nil, false
