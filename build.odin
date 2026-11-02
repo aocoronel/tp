@@ -215,7 +215,7 @@ main :: proc() {
 	source_code :: "./src"
 	deps := "" if global else "-collection:shared=shared/"
 
-	ODIN_FLAGS :: []string{"-show-timings", "-custom-attribute:command", "-out:bin/bmark"}
+	ODIN_FLAGS :: []string{"-show-timings", "-custom-attribute:command", "-out:bin/tp"}
 
 	switch mode {
 	case "debug":
